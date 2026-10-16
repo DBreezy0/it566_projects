@@ -20,6 +20,8 @@ To start the program, open a terminal in the "diary_app" folder and type "python
 
 **Load a different diary file.** Switch to a diary file that already exists.
 
+**Exit.** Closes the program.
+
 ## Where The Entries Are Saved
 
 Diary files are stored in the "data" folder. Each entry is one line like this: "2026-10-06 Text of the entry"
