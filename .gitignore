@@ -218,3 +218,4 @@ __marimo__/
 .streamlit/secrets.toml
 # Diary entries
 diary_app/data/
+.DS_Store
