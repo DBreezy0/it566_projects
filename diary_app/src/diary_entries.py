@@ -19,11 +19,6 @@ def get_file_path(file_name):
     return os.path.join(os.getcwd(), DATA_FOLDER, file_name)
 
 
-def file_exists(file_path):
-    """Give back True if the file is there or False if it is not."""
-    return os.path.exists(file_path)
-
-
 def text_to_date(date_text):
     """Change text like 10/07/2026 into a date. No text means today."""
     if date_text == '':
