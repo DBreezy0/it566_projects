@@ -15,5 +15,5 @@ class Expense:
 
     def __str__(self) -> str:
         """Make one line of text to print."""
-        return (f'{self.expense_date}  {self.category:<12}  '
-                f'{self.description:<25}  ${self.amount:>9.2f}')
+        return (f'{self.expense_date}  {self.category:12}  '
+                f'{self.description:25}  ${self.amount:9.2f}')
