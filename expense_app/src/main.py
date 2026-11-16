@@ -3,6 +3,7 @@ import sys
 from datetime import date
 from expense import Expense
 from expense_storage import save_expenses, open_expenses
+from expense_filter import filter_by_category, filter_by_date_range
 
 
 def display_menu():
@@ -12,7 +13,8 @@ def display_menu():
     print('\t2. Print all expenses')
     print('\t3. Save expenses to a file')
     print('\t4. Open expenses from a file')
-    print('\t5. Exit')
+    print('\t5. Filter expenses')
+    print('\t6. Exit')
 
 
 def text_to_date(date_text):
@@ -62,6 +64,24 @@ def open_from_file(expenses):
         print(f'\n\tProblem opening the file: {e}')
 
 
+def filter_expenses(expenses):
+    """Ask what to filter by and print the matching expenses."""
+    category = input('\n\tCategory (press Return to skip): ')
+    start_text = input('\tStart date mm/dd/yyyy (press Return to skip): ')
+    end_text = input('\tEnd date mm/dd/yyyy (press Return to skip): ')
+    try:
+        matches = expenses
+        if category != '':
+            matches = filter_by_category(matches, category)
+        if start_text != '' and end_text != '':
+            start_date = text_to_date(start_text)
+            end_date = text_to_date(end_text)
+            matches = filter_by_date_range(matches, start_date, end_date)
+        print_expenses(matches)
+    except Exception as e:
+        print(f'\n\tProblem filtering: {e}')
+
+
 def process_menu_choice(expenses):
     """Reads the choice and runs the command."""
     menu_choice = input('\n\tEnter Command Number: ')
@@ -70,7 +90,8 @@ def process_menu_choice(expenses):
         case '2': print_expenses(expenses)
         case '3': save_to_file(expenses)
         case '4': open_from_file(expenses)
-        case '5': sys.exit()
+        case '5': filter_expenses(expenses)
+        case '6': sys.exit()
         case _: print(f'\n\t{menu_choice} is not a command.')
 
 
