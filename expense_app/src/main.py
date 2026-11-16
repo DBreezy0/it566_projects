@@ -2,7 +2,7 @@
 import sys
 from datetime import date
 from expense import Expense
-from expense_storage import save_expenses
+from expense_storage import save_expenses, open_expenses
 
 
 def display_menu():
@@ -11,7 +11,8 @@ def display_menu():
     print('\t1. Add an expense')
     print('\t2. Print all expenses')
     print('\t3. Save expenses to a file')
-    print('\t4. Exit')
+    print('\t4. Open expenses from a file')
+    print('\t5. Exit')
 
 
 def text_to_date(date_text):
@@ -49,6 +50,18 @@ def save_to_file(expenses):
     print(f'\tSaved {len(expenses)} expense(s) to {file_name}.')
 
 
+def open_from_file(expenses):
+    """Ask for a file name and load the expenses from it."""
+    file_name = input('\n\tFile name: ')
+    try:
+        opened_expenses = open_expenses(file_name)
+        expenses.clear()
+        expenses.extend(opened_expenses)
+        print(f'\tOpened {len(expenses)} expense(s) from {file_name}.')
+    except Exception as e:
+        print(f'\n\tProblem opening the file: {e}')
+
+
 def process_menu_choice(expenses):
     """Reads the choice and runs the command."""
     menu_choice = input('\n\tEnter Command Number: ')
@@ -56,7 +69,8 @@ def process_menu_choice(expenses):
         case '1': add_expense(expenses)
         case '2': print_expenses(expenses)
         case '3': save_to_file(expenses)
-        case '4': sys.exit()
+        case '4': open_from_file(expenses)
+        case '5': sys.exit()
         case _: print(f'\n\t{menu_choice} is not a command.')
 
 
