@@ -4,6 +4,7 @@ from datetime import date
 from expense import Expense
 from expense_storage import save_expenses, open_expenses
 from expense_filter import filter_by_category, filter_by_date_range
+from expense_export import export_to_csv
 
 
 def display_menu():
@@ -14,7 +15,8 @@ def display_menu():
     print('\t3. Save expenses to a file')
     print('\t4. Open expenses from a file')
     print('\t5. Filter expenses')
-    print('\t6. Exit')
+    print('\t6. Export expenses to a CSV file')
+    print('\t7. Exit')
 
 
 def text_to_date(date_text):
@@ -82,6 +84,13 @@ def filter_expenses(expenses):
         print(f'\n\tProblem filtering: {e}')
 
 
+def export_to_file(expenses):
+    """Ask for a file name and export the expenses to CSV."""
+    file_name = input('\n\tCSV file name: ')
+    export_to_csv(expenses, file_name)
+    print(f'\tExported {len(expenses)} expense(s) to {file_name}.')
+
+
 def process_menu_choice(expenses):
     """Reads the choice and runs the command."""
     menu_choice = input('\n\tEnter Command Number: ')
@@ -91,7 +100,8 @@ def process_menu_choice(expenses):
         case '3': save_to_file(expenses)
         case '4': open_from_file(expenses)
         case '5': filter_expenses(expenses)
-        case '6': sys.exit()
+        case '6': export_to_file(expenses)
+        case '7': sys.exit()
         case _: print(f'\n\t{menu_choice} is not a command.')
 
 
